@@ -1,0 +1,243 @@
+/* ========================================
+   styles.css — Pomodoro SDD v3.0
+   Sin frameworks. Solo CSS3 vanilla.
+   ======================================== */
+
+/* --- Variables CSS --- */
+:root {
+  /* Colores - Trabajo */
+  --color-work: #e74c3c;
+  --color-work-light: #fadbd8;
+
+  /* Colores - Descanso */
+  --color-break: #27ae60;
+  --color-break-light: #d5f5e3;
+
+  /* Colores - UI */
+  --color-bg: #f5f6fa;
+  --color-surface: #ffffff;
+  --color-text: #2d3436;
+  --color-text-muted: #636e72;
+  --color-focus: #3498db;
+  --color-debug: #f39c12;
+
+  /* Tamaños - Desktop */
+  --timer-size: 16.25rem;
+  --container-padding: 2.5rem;
+  --font-timer: 4rem;
+  --font-mode: 1.25rem;
+  --font-button: 1rem;
+  --font-counter: 1rem;
+
+  /* Layout */
+  --container-max-width: min(90vw, 26.25rem);
+  --border-radius: 0.75rem;
+  --button-min-size: 2.75rem;
+
+  /* SVG */
+  --stroke-width: 8;
+  --circle-circumference: 753.98;
+}
+
+/* --- Reset / Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+/* --- Layout principal --- */
+.app {
+  width: var(--container-max-width);
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  padding: var(--container-padding);
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* --- Timer display --- */
+.timer-section {
+  display: flex;
+  justify-content: center;
+}
+
+.timer-container {
+  position: relative;
+  width: var(--timer-size);
+  height: var(--timer-size);
+}
+
+.timer-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+#time-display {
+  font-size: var(--font-timer);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.mode-label {
+  font-size: var(--font-mode);
+  font-weight: 500;
+}
+
+/* --- Anillo SVG --- */
+.progress-ring {
+  width: var(--timer-size);
+  height: var(--timer-size);
+  transform: rotate(-90deg);
+}
+
+.progress-ring__background {
+  fill: none;
+  stroke: #eee;
+  stroke-width: var(--stroke-width);
+}
+
+.progress-ring__circle {
+  fill: none;
+  stroke-width: var(--stroke-width);
+  stroke-dasharray: var(--circle-circumference);
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+/* --- Colores por fase --- */
+.mode-work .progress-ring__circle {
+  stroke: var(--color-work);
+}
+
+.mode-break .progress-ring__circle {
+  stroke: var(--color-break);
+}
+
+.mode-work .mode-label {
+  color: var(--color-work);
+}
+
+.mode-break .mode-label {
+  color: var(--color-break);
+}
+
+/* --- Botones --- */
+.controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  min-height: var(--button-min-size);
+  min-width: var(--button-min-size);
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: var(--font-button);
+  font-weight: 600;
+  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#btn-toggle {
+  background: var(--color-work);
+  color: #ffffff;
+}
+
+.mode-break #btn-toggle {
+  background: var(--color-break);
+}
+
+#btn-reset {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-text-muted);
+}
+
+#btn-reset:hover {
+  background: var(--color-text-muted);
+  color: #ffffff;
+}
+
+/* --- Contador --- */
+.counter {
+  font-size: var(--font-counter);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+#cycle-count {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* --- Debug badge --- */
+.debug-badge {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--color-debug);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  z-index: 1000;
+}
+
+/* --- Focus visible --- */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  :root {
+    --timer-size: 13.75rem;
+    --container-padding: 1.25rem;
+    --font-timer: 3rem;
+    --font-button: 0.9rem;
+  }
+}
+
+/* --- Preferencias de movimiento --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

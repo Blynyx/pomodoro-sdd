@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Temporizador Pomodoro con trabajo de 25 minutos y descansos de 5 minutos">
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <div id="debug-badge" class="debug-badge" hidden>DEBUG MODE</div>
+
+    <section class="timer-section" aria-label="Temporizador pomodoro">
+      <div class="timer-container">
+        <svg class="progress-ring" viewBox="0 0 260 260">
+          <circle class="progress-ring__background" cx="130" cy="130" r="120" />
+          <circle id="progress-circle" class="progress-ring__circle" cx="130" cy="130" r="120" />
+        </svg>
+        <div class="timer-display"
+             role="timer"
+             aria-live="polite"
+             aria-atomic="true">
+          <span id="time-display">25:00</span>
+          <span id="mode-label" class="mode-label">Trabajo</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Controles del temporizador">
+      <button id="btn-toggle"
+              type="button"
+              aria-label="Iniciar temporizador">
+        Iniciar
+      </button>
+      <button id="btn-reset"
+              type="button"
+              aria-label="Reiniciar temporizador">
+        Reiniciar
+      </button>
+    </section>
+
+    <section class="counter" aria-label="Pomodoros completados">
+      <span>Pomodoros: </span>
+      <span id="cycle-count">0</span>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
